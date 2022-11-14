@@ -40,7 +40,7 @@ def qgisMinimumVersion():
 	return '1.9'
 
 def qgisMaximumVersion():
-	return '2.9'
+	return '3.9'
 
 def author():
 	return 'Pavol Kapusta'
@@ -49,8 +49,8 @@ def email():
 	return 'goyodiaz@gmail.com'
 
 def category():
-  return 'Vector'
+	return 'Vector'
 
 def classFactory(iface):
-	from points2one_plugin import points2one
+	from .points2one_plugin import points2one
 	return points2one(iface)

@@ -20,14 +20,12 @@
 """Encoding related stuff."""
 
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtCore import QTextCodec
+from qgis.PyQt.QtCore import QSettings, QTextCodec
 
 
 def getEncodings():
     """Return a list of available encodings."""
-    names = [unicode(QTextCodec.codecForMib(mib).name())
-             for mib in QTextCodec.availableMibs()]
+    names = [bytes(QTextCodec.codecForMib(mib).name()).decode() for mib in QTextCodec.availableMibs()]
     return names
 
 def getDefaultEncoding(default='System'):

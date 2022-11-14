@@ -27,10 +27,10 @@
 
 from itertools import groupby
 
-from PyQt4.QtCore import *
+from qgis.PyQt.QtCore import *
 from qgis.core import *
 
-from p2o_errors import P2OError
+from .p2o_errors import P2OError
 
 
 class Engine(object):
@@ -73,15 +73,15 @@ class Engine(object):
         for key, points in self.iter_groups():
             try:
                 feature = self.make_feature(points)
-            except ValueError, e:
-                message = 'Key value %s: %s' % (key, e.message)
+            except ValueError as e:
+                message = f'Key value {key}: {str(e)}'
                 self.log_warning(message)
             else:
                 yield feature
 
     def iter_groups(self):
         """Iterate over the input layer grouping by attribute.
-    
+
         Returns an iterator of (key, points) pairs where key is the
         attribute value and points is an iterator of (QgsPoint,
         attributeMap) pairs.
@@ -108,49 +108,49 @@ class Engine(object):
 
     def iter_points(self):
         """Iterate over the features of the input layer.
-    
+
         Yields pairs of the form (QgsPoint, attributeMap).
         Each time a vertice is read hook is called.
-    
+
         """
         provider = self.layer.dataProvider()
         features = provider.getFeatures()
         feature = QgsFeature()
-        while(features.nextFeature(feature)):
+        while (features.nextFeature(feature)):
             self.hook()
             geom = feature.geometry().asPoint()
             attributes = feature.attributes()
-            yield(QgsPoint(geom.x(), geom.y()), attributes)
+            yield (QgsPoint(geom.x(), geom.y()), attributes)
 
     def make_feature(self, points):
         """Return a feature with given vertices.
-    
+
         Vertices are given as (QgsPoint, attributeMap) pairs. Returned
         feature is polygon or polyline depending on wkb_type.
-    
+
         """
         point_list = []
         for point in points:
-            point_list.append(point[0])
+            point_list.append(QgsPointXY(point[0]))
         attributes = point[1]
         feature = QgsFeature()
-        if self.wkb_type == QGis.WKBLineString:
+        if self.wkb_type == QgsWkbTypes.LineString:
             if len(point_list) < 2:
-                raise ValueError, 'Can\'t make a polyline out of %s points' % len(point_list)
+                raise ValueError('Can\'t make a polyline out of %s points' % len(point_list))
             if len(point_list) > 2 and self.close_lines == True:
                 if point_list[0] != point_list[-1]:
-                    point_list.append(point_list[0]);
+                    point_list.append(point_list[0])
             feature.setGeometry(QgsGeometry.fromPolyline(point_list))
-        elif self.wkb_type == QGis.WKBPolygon:
+        elif self.wkb_type == QgsWkbTypes.Polygon:
             if len(point_list) < 3:
-                raise ValueError, 'Can\'t make a polygon out of %s points' % len(point_list)
-            geom = QgsGeometry.fromPolygon([point_list])
+                raise ValueError('Can\'t make a polygon out of %s points' % len(point_list))
+            geom = QgsGeometry.fromPolygonXY([point_list])
             feature.setGeometry(geom)
         else:
-            raise ValueError, 'Invalid geometry type: %s.' % self.wkb_type
+            raise ValueError('Invalid geometry type: %s.' % self.wkb_type)
         feature.setAttributes(attributes)
         return feature
-                                                                       
+
     def log_warning(self, message):
         """Log a warning."""
         self.logger.append(message)

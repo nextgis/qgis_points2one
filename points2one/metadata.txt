@@ -11,7 +11,7 @@
 [general]
 name=Points2One
 qgisMinimumVersion=1.9
-qgisMaximumVersion=2.99
+qgisMaximumVersion=3.99
 description=Create lines and polygons from vertices.
 version=1.0.2
 author=Pavol Kapusta
