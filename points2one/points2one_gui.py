@@ -28,28 +28,27 @@ from itertools import groupby
 from os.path import basename
 from os.path import dirname
 from os.path import splitext
+from os.path import join
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtWidgets import *
 from qgis.core import *
-from qgis.gui import *
+from qgis.PyQt import uic
 
-from ui_frmPoints2One import Ui_Dialog
-from p2o_encodings import getEncodings
-from p2o_encodings import getDefaultEncoding
-from p2o_encodings import setDefaultEncoding
-from p2o_engine import Engine
-from p2o_errors import P2OError
+from .p2o_encodings import getEncodings, getDefaultEncoding, setDefaultEncoding
+from .p2o_engine import Engine, P2OError
+
+BASE_FORM_CLASS, _ = uic.loadUiType(join(dirname(__file__), 'frmPoints2One.ui'))
 
 
-class points2One(QDialog, Ui_Dialog):
+class points2One(QDialog, BASE_FORM_CLASS):
     def __init__(self, iface):
-        QDialog.__init__(self)
+        super(points2One, self).__init__()
         self.iface = iface
         self.setupUi(self)
-        QObject.connect(self.wBrowse, SIGNAL('clicked()'), self.outFile)
-        QObject.connect(self.wSort1, SIGNAL('toggled(bool)'),
-            self.sort1_toggled)
+        self.wInputLayer.setFilters(QgsMapLayerProxyModel.PointLayer)
+        self.wBrowse.clicked.connect(self.outFile)
+        self.wSort1.toggled.connect(self.sort1_toggled)
         for combo in (self.wGroupField, self.wSortField1, self.wSortField2):
             combo.setLayer(self.layer())
             combo.setCurrentIndex(0)
@@ -58,7 +57,7 @@ class points2One(QDialog, Ui_Dialog):
 
     def layer_name(self):
         """Return the selected input layer name as unicode."""
-        return unicode(self.wInputLayer.currentText())
+        return str(self.wInputLayer.currentText())
 
     def layer(self):
         """Return the selected input layer as a QgsMapLayer instance."""
@@ -67,9 +66,9 @@ class points2One(QDialog, Ui_Dialog):
     def output_geometry(self):
         """Return the selected output geometry."""
         if self.wCreateLines.isChecked():
-            return QGis.WKBLineString
+            return QgsWkbTypes.LineString
         else:
-            return QGis.WKBPolygon
+            return QgsWkbTypes.Polygon
 
     def close_lines(self):
         """Return whether lines must be closed."""
@@ -82,21 +81,21 @@ class points2One(QDialog, Ui_Dialog):
     def group_field(self):
         """Return the name of the grouping field."""
         if self.group():
-            return unicode(self.wGroupField.currentText())
+            return str(self.wGroupField.currentText())
 
     def sort_fields(self):
         """Return the names of sorting fields as a list."""
-        fields=[]
+        fields = []
         if self.wSort1.isChecked():
-            fields.append(unicode(self.wSortField1.currentText()))
+            fields.append(str(self.wSortField1.currentText()))
         if self.wSort2.isChecked():
-            fields.append(unicode(self.wSortField2.currentText()))
+            fields.append(str(self.wSortField2.currentText()))
         return fields
-            
+
 
     def output_encoding(self):
         """Return the output encoding as unicode."""
-        return unicode(self.wEncoding.currentText())
+        return str(self.wEncoding.currentText())
 
     def check_input(self):
         """Check whether the input is valid, raise if not."""
@@ -163,14 +162,14 @@ class points2One(QDialog, Ui_Dialog):
             warningBox.exec_()
 
         if self.wAddResult.isChecked():
-            addShapeToCanvas(unicode(self.output_path()))
+            addShapeToCanvas(str(self.output_path()))
         self.wProgressBar.setValue(0)
 
     def accept(self):
         try:
             self._accept()
         except P2OError as e:
-            QMessageBox.critical(self, 'Points2One', e.message)
+            QMessageBox.critical(self, 'Points2One', str(e))
 
     def sort1_toggled(self, checked):
         if not checked:
@@ -198,12 +197,12 @@ def saveDialog(parent):
     key = '/UI/lastShapefileDir'
     outDir = settings.value(key)
     filter = 'Shapefiles (*.shp)'
-    outFilePath = QFileDialog.getSaveFileName(parent, parent.tr('Save output shapefile'), outDir, filter)
-    outFilePath = unicode(outFilePath)
+    outFilePath, _ = QFileDialog.getSaveFileName(parent, parent.tr('Save output shapefile'), outDir, filter)
+    outFilePath = str(outFilePath)
     if outFilePath:
         root, ext = splitext(outFilePath)
         if ext.upper() != '.SHP':
-            outFilePath = '%s.shp' % outFilePath
+            outFilePath = f'{outFilePath}.shp'
         outDir = dirname(outFilePath)
         settings.setValue(key, outDir)
     return outFilePath
@@ -218,5 +217,5 @@ def addShapeToCanvas(shapeFilePath):
     if ext == '.shp':
         layerName = root
     vlayer_new = QgsVectorLayer(shapeFilePath, layerName, "ogr")
-    ret = QgsMapLayerRegistry.instance().addMapLayer(vlayer_new)
+    ret = QgsProject.instance().addMapLayer(vlayer_new)
     return ret

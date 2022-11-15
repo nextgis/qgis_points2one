@@ -32,9 +32,6 @@
    </item>
    <item>
     <widget class="QgsMapLayerComboBox" name="wInputLayer">
-     <property name="filters">
-      <set>QgsMapLayerProxyModel::PointLayer</set>
-     </property>
     </widget>
    </item>
    <item>
@@ -229,7 +226,7 @@
   <customwidget>
    <class>QgsMapLayerComboBox</class>
    <extends>QComboBox</extends>
-   <header>qgsmaplayercombobox.h</header>
+   <header>qgis.gui</header>
   </customwidget>
  </customwidgets>
  <tabstops>

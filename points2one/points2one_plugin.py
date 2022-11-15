@@ -25,14 +25,12 @@
 #---------------------------------------------------------------------
 
 import os
-import sys
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtGui import *
+from qgis.PyQt.QtWidgets import QAction
 
-import resources
-import points2one_gui
+from .points2one_gui import points2One
 
 
 class points2one(object):
@@ -43,7 +41,7 @@ class points2one(object):
     def load_translation(self):
         ## Initialise the translation environment.
         locale = QSettings().value('locale/userLocale')
-        filepath = unicode(__file__, encoding=sys.getfilesystemencoding())
+        filepath = str(__file__)
         locale_path = os.path.join(os.path.dirname(filepath), 'i18n',
             ''.join(['points2one_', locale, '.qm']))
         if QFileInfo(locale_path).exists():
@@ -53,14 +51,14 @@ class points2one(object):
                 QCoreApplication.installTranslator(self.translator)
 
     def initGui(self):
-        # create action 
+        # create action
         self.action = QAction(
             QIcon(':/plugins/points2one/points2one.png'),
             'Points2One',
             self.iface.mainWindow()
         )
         self.action.setWhatsThis('Create polygons and lines from vertices.')
-        QObject.connect(self.action, SIGNAL('triggered()'), self.run)
+        self.action.triggered.connect(self.run)
         # add toolbar button and menu item
         self.iface.addVectorToolBarIcon(self.action)
         self.iface.addPluginToVectorMenu('&Points2One', self.action)
@@ -71,5 +69,5 @@ class points2one(object):
         self.iface.removeVectorToolBarIcon(self.action)
 
     def run(self):
-        dialog = points2one_gui.points2One(self.iface)
+        dialog = points2One(self.iface)
         dialog.exec_()
