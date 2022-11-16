@@ -56,8 +56,7 @@ class Engine(object):
                 msg = 'Unable to delete existing shapefile "{}"'
                 raise P2OError(msg = msg.format(self.name))
         provider = self.layer.dataProvider()
-        writer = QgsVectorFileWriter(self.fname, self.encoding,
-            provider.fields(), self.wkb_type, self.layer.crs())
+        writer = QgsVectorFileWriter(self.fname, self.encoding, provider.fields(), self.wkb_type, self.layer.crs(), 'ESRI Shapefile')
         for feature in self.iter_features():
             writer.addFeature(feature)
         del writer
@@ -131,7 +130,7 @@ class Engine(object):
         """
         point_list = []
         for point in points:
-            point_list.append(QgsPointXY(point[0]))
+            point_list.append(QgsPointXY(point[0]) if self.wkb_type == QgsWkbTypes.Polygon else point[0])
         attributes = point[1]
         feature = QgsFeature()
         if self.wkb_type == QgsWkbTypes.LineString:
