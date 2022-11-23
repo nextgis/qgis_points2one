@@ -7,52 +7,56 @@
 
 # Mandatory items:
 
-
 [general]
-name=Points2One
-qgisMinimumVersion=1.9
+name=NextGIS Points2One
+qgisMinimumVersion=3.4
 qgisMaximumVersion=3.99
 description=Create lines and polygons from vertices.
 version=1.0.2
-author=Pavol Kapusta
-email=goyodiaz@gmail.com
-about=Connects points in a layer to form lines and polygons.
+author=NextGIS
+email=info@nextgis.com
+about=Connects points in a layer to form lines and polygons. A QGIS3 port of a plugin by Pavol Kapusta.
 
 # end of mandatory metadata
 
 # Optional items:
 
 # Uncomment the following line and add your changelog entries:
-changelog=1.0.2
-    - Add "about" metadata.
-
-    1.0.1
-    - Use the appropiate encoding for file names.
-
-    1.0.0
-    - Use QGIS wigdets.
-    - Improved sorting of vertices.
+changelog=
+    0.3
+    * QGIS3 port
 
     0.2.15
-    - Add option to close lines.
-    - Add Russian translation.
+    * Add option to close lines.
+    * Add Russian translation.
 
     0.2.14
-    - Remove 1.8 compatibility code.
-    
+    * Remove 1.8 compatibility code.
+
     0.2.13
-    - Adapt to API changes. Does not work with 1.8 (nor earlier 1.9) anymore.
-    
+    * Adapt to API changes. Does not work with 1.8 (nor earlier 1.9) anymore.
     0.2.12
-    - Add metadata.txt plus changes in __init__.py
+    * Add metadata.txt plus changes in __init__.py  
+    
+    1.0.2
+    * Add "about" metadata.
+
+    1.0.1
+    * Use the appropiate encoding for file names.
+
+    1.0.0
+    * Use QGIS wigdets.
+    * Improved sorting of vertices.
+    
 
 # tags are comma separated with spaces allowed
-tags=
+tags=point,line,nextgis,conversion
 
-homepage=https://launchpad.net/points2one
-tracker=https://bugs.launchpad.net/points2one
-repository=https://code.launchpad.net/points2one
+homepage=https://nextgis.com
+tracker=https://github.com/nextgis/qgis_points2one/issues
+repository=https://github.com/nextgis/qgis_points2one
 icon=points2one.png
+
 # experimental flag
 experimental=False
 
