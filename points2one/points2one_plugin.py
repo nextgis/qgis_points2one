@@ -51,11 +51,14 @@ class points2one(object):
                 QCoreApplication.installTranslator(self.translator)
 
     def initGui(self):
+        """Create the menu entries and toolbar icons inside the QGIS GUI."""
+        
         # create action
-        self.action = QAction(
-            QIcon(':/plugins/qgis_points2one/points2one.png'),
-            'Points2One',
-            self.iface.mainWindow()
+        _current_path = os.path.abspath(os.path.dirname(__file__))
+        plugin_icon_path = os.path.abspath(os.path.join(_current_path,'points2one.png'))
+        plugin_icon = QIcon(plugin_icon_path)
+
+        self.action = QAction(plugin_icon,'Points2One',self.iface.mainWindow()
         )
         self.action.setWhatsThis('Create polygons and lines from vertices.')
         self.action.triggered.connect(self.run)
