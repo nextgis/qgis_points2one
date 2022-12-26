@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix='/plugins/points2one'>
+    <qresource prefix='/plugins/qgis_points2one'>
         <file>points2one.png</file>        
     </qresource>
 </RCC>

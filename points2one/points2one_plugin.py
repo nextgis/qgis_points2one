@@ -39,7 +39,7 @@ class points2one(object):
         self.load_translation()
 
     def load_translation(self):
-        ## Initialise the translation environment.
+        ## Initialize the translation environment.
         locale = QSettings().value('locale/userLocale')
         filepath = str(__file__)
         locale_path = os.path.join(os.path.dirname(filepath), 'i18n',
@@ -53,7 +53,7 @@ class points2one(object):
     def initGui(self):
         # create action
         self.action = QAction(
-            QIcon(':/plugins/points2one/points2one.png'),
+            QIcon(':/plugins/qgis_points2one/points2one.png'),
             'Points2One',
             self.iface.mainWindow()
         )
