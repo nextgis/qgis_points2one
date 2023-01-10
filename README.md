@@ -6,7 +6,7 @@ https://code.launchpad.net/points2one
 
 Commercial support
 ----------
-Need to fix a bug or add a feature to QGIS_points2one? 
+Need to fix a bug or add a feature to Points2one? 
 
 We provide custom development and support for this software. [Contact us](https://nextgis.com/contact/) to discuss options!
 
