@@ -11,11 +11,11 @@
 name=NextGIS Points2One
 qgisMinimumVersion=3.4
 qgisMaximumVersion=3.99
-description=Create lines and polygons from vertices.
+description=Create lines and polygons from vertices
+about=Connects points in a layer to form lines and polygons. A QGIS 3 port of a plugin by Pavol Kapusta. Developed by NextGIS. Any feedback is welcome at https://nextgis.com/contact
 version=0.3.1
 author=NextGIS
 email=info@nextgis.com
-about=Connects points in a layer to form lines and polygons. A QGIS3 port of a plugin by Pavol Kapusta.
 
 # end of mandatory metadata
 
