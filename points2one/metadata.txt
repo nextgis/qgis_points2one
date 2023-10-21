@@ -11,11 +11,13 @@
 name=NextGIS Points2One
 qgisMinimumVersion=3.4
 qgisMaximumVersion=3.99
-description=Create lines and polygons from vertices
-about=Connects points in a layer to form lines and polygons. A QGIS 3 port of a plugin by Pavol Kapusta. Developed by NextGIS. Any feedback is welcome at https://nextgis.com/contact
+description=Create lines and polygons from vertices.
+description[ru]=Создавайте линии и многоугольники из вершин.
 version=0.3.1
 author=NextGIS
 email=info@nextgis.com
+about=Connects points in a layer to form lines and polygons. A QGIS3 port of a plugin by Pavol Kapusta.
+about[ru]=Соединяет точки в слое, образуя линии и многоугольники. Порт QGIS3 плагина от Павла Капусты.
 
 # end of mandatory metadata
 
@@ -25,7 +27,7 @@ email=info@nextgis.com
 changelog=
     0.3.1
     * Fix plugin toolbar icon
-    
+
     0.3
     * QGIS3 port
 
@@ -39,8 +41,8 @@ changelog=
     0.2.13
     * Adapt to API changes. Does not work with 1.8 (nor earlier 1.9) anymore.
     0.2.12
-    * Add metadata.txt plus changes in __init__.py  
-    
+    * Add metadata.txt plus changes in __init__.py
+
     1.0.2
     * Add "about" metadata.
 
@@ -50,7 +52,7 @@ changelog=
     1.0.0
     * Use QGIS wigdets.
     * Improved sorting of vertices.
-    
+
 
 # tags are comma separated with spaces allowed
 tags=point,line,nextgis,conversion
@@ -59,6 +61,8 @@ homepage=https://nextgis.com
 tracker=https://github.com/nextgis/qgis_points2one/issues
 repository=https://github.com/nextgis/qgis_points2one
 icon=points2one.png
+video=https://youtu.be/tzZnHBx3N98
+video[ru]=https://youtu.be/AT6wt3dWIKg
 
 # experimental flag
 experimental=False
