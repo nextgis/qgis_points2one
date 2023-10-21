@@ -1,34 +1,33 @@
 # -----------------------------------------------------------
-# 
+#
 # Points2One
 # Copyright (C) 2010-2011 Pavol Kapusta <pavol.kapusta@gmail.com>
 # Copyright (C) 2011, 2013 Goyo <goyodiaz@gmail.com>
-# 
+#
 # -----------------------------------------------------------
-# 
+#
 # licensed under the terms of GNU GPL 2
-# 
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-# 
+#
 # ---------------------------------------------------------------------
 
 import os
 from os import path
 
 from qgis.PyQt.QtCore import *
-# from qgis.PyQt.QtCore import QgsApplication
 from qgis.PyQt.QtGui import *
 from qgis.PyQt.QtWidgets import QAction
 from qgis.PyQt.QtCore import QTranslator, QCoreApplication
@@ -44,33 +43,19 @@ class points2one(object):
         self._translator = None
         self.__init_translator()
 
-    # def load_translation(self):
-    #     ## Initialize the translation environment.
-    #     locale = QSettings().value('locale/userLocale')
-    #     filepath = str(__file__)
-    #     locale_path = os.path.join(os.path.dirname(filepath), 'i18n',
-    #                                ''.join(['points2one_', locale, '.qm']))
-    #     if QFileInfo(locale_path).exists():
-    #         self.translator = QTranslator()
-    #         self.translator.load(locale_path)
-    #         if qVersion() > '4.3.3':
-    #             QCoreApplication.installTranslator(self.translator)
-
     def __init_translator(self):
         # initialize locale
         locale = QSettings().value('locale/userLocale')
 
         def add_translator(locale_path):
-            if not path.exists(locale_path):
-                return
             translator = QTranslator()
-            translator.load(locale_path)
+            if not translator.load(locale_path):
+                return
             QCoreApplication.installTranslator(translator)
             self._translator = translator  # Should be kept in memory
 
         add_translator(path.join(
-            self.plugin_dir, 'i18n',
-            'points2one_{}_{}.qm'.format(locale, locale.upper())
+            self.plugin_dir, 'i18n', f'points2one_{locale}.qm'
         ))
 
     def initGui(self):
