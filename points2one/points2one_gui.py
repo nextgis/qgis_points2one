@@ -1,28 +1,28 @@
 # -*- coding: utf-8 -*-
-#-----------------------------------------------------------
-# 
+# -----------------------------------------------------------
+#
 # Points2One
 # Copyright (C) 2010 Pavol Kapusta <pavol.kapusta@gmail.com>
 # Copyright (C) 2010, 2013, 2015 Goyo <goyodiaz@gmail.com>
-#-----------------------------------------------------------
-# 
+# -----------------------------------------------------------
+#
 # licensed under the terms of GNU GPL 2
-# 
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-# 
-#---------------------------------------------------------------------
+#
+# ---------------------------------------------------------------------
 
 from itertools import groupby
 from os.path import basename
@@ -38,7 +38,9 @@ from qgis.PyQt import uic
 from .p2o_encodings import getEncodings, getDefaultEncoding, setDefaultEncoding
 from .p2o_engine import Engine, P2OError
 
-BASE_FORM_CLASS, _ = uic.loadUiType(join(dirname(__file__), 'frmPoints2One.ui'))
+BASE_FORM_CLASS, _ = uic.loadUiType(
+    join(dirname(__file__), "frmPoints2One.ui")
+)
 
 
 class points2One(QDialog, BASE_FORM_CLASS):
@@ -92,7 +94,6 @@ class points2One(QDialog, BASE_FORM_CLASS):
             fields.append(str(self.wSortField2.currentText()))
         return fields
 
-
     def output_encoding(self):
         """Return the output encoding as unicode."""
         return str(self.wEncoding.currentText())
@@ -101,20 +102,20 @@ class points2One(QDialog, BASE_FORM_CLASS):
         """Check whether the input is valid, raise if not."""
         layer = self.layer()
         if layer is None:
-            msg = self.tr('Please select an input layer')
+            msg = self.tr("Please select an input layer")
             raise P2OError(msg)
 
-        if self.group_field() == '':
-            msg = self.tr('Please select a field to group by')
+        if self.group_field() == "":
+            msg = self.tr("Please select a field to group by")
             raise P2OError(msg)
 
         for field in self.sort_fields():
             if not field:
-                msg = self.tr('Please select a field for sorting')
+                msg = self.tr("Please select a field for sorting")
                 raise P2OError(msg)
 
         if not self.output_path():
-            msg = self.tr('Please specify output shapefile')
+            msg = self.tr("Please specify output shapefile")
             raise P2OError(msg)
 
     def populate_encodings(self, names):
@@ -143,19 +144,21 @@ class points2One(QDialog, BASE_FORM_CLASS):
             self.close_lines(),
             self.group_field(),
             self.sort_fields(),
-            self.update_progress_bar
+            self.update_progress_bar,
         )
 
         engine.run()
 
         # Show warning
-        log_msg = '\n'.join(engine.get_logger())
+        log_msg = "\n".join(engine.get_logger())
         if log_msg:
             warningBox = QMessageBox(self)
-            warningBox.setWindowTitle('Points2One')
-            message = self.tr('Output shapefile created')
+            warningBox.setWindowTitle("Points2One")
+            message = self.tr("Output shapefile created")
             warningBox.setText(message)
-            message = self.tr('There were some issues, maybe some features could not be created.')
+            message = self.tr(
+                "There were some issues, maybe some features could not be created."
+            )
             warningBox.setInformativeText(message)
             warningBox.setDetailedText(log_msg)
             warningBox.setIcon(QMessageBox.Warning)
@@ -169,7 +172,7 @@ class points2One(QDialog, BASE_FORM_CLASS):
         try:
             self._accept()
         except P2OError as e:
-            QMessageBox.critical(self, 'Points2One', str(e))
+            QMessageBox.critical(self, "Points2One", str(e))
 
     def sort1_toggled(self, checked):
         if not checked:
@@ -194,15 +197,17 @@ class points2One(QDialog, BASE_FORM_CLASS):
 def saveDialog(parent):
     """Shows a save file dialog and return the selected file path."""
     settings = QSettings()
-    key = '/UI/lastShapefileDir'
+    key = "/UI/lastShapefileDir"
     outDir = settings.value(key)
-    filter = 'Shapefiles (*.shp)'
-    outFilePath, _ = QFileDialog.getSaveFileName(parent, parent.tr('Save output shapefile'), outDir, filter)
+    filter = "Shapefiles (*.shp)"
+    outFilePath, _ = QFileDialog.getSaveFileName(
+        parent, parent.tr("Save output shapefile"), outDir, filter
+    )
     outFilePath = str(outFilePath)
     if outFilePath:
         root, ext = splitext(outFilePath)
-        if ext.upper() != '.SHP':
-            outFilePath = f'{outFilePath}.shp'
+        if ext.upper() != ".SHP":
+            outFilePath = f"{outFilePath}.shp"
         outDir = dirname(outFilePath)
         settings.setValue(key, outDir)
     return outFilePath
@@ -214,7 +219,7 @@ def saveDialog(parent):
 def addShapeToCanvas(shapeFilePath):
     layerName = basename(shapeFilePath)
     root, ext = splitext(layerName)
-    if ext == '.shp':
+    if ext == ".shp":
         layerName = root
     vlayer_new = QgsVectorLayer(shapeFilePath, layerName, "ogr")
     ret = QgsProject.instance().addMapLayer(vlayer_new)

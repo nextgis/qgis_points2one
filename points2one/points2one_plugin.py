@@ -45,7 +45,7 @@ class points2one(object):
 
     def __init_translator(self):
         # initialize locale
-        locale = QSettings().value('locale/userLocale')
+        locale = QSettings().value("locale/userLocale")
 
         def add_translator(locale_path):
             translator = QTranslator()
@@ -54,34 +54,36 @@ class points2one(object):
             QCoreApplication.installTranslator(translator)
             self._translator = translator  # Should be kept in memory
 
-        add_translator(path.join(
-            self.plugin_dir, 'i18n', f'points2one_{locale}.qm'
-        ))
+        add_translator(
+            path.join(self.plugin_dir, "i18n", f"points2one_{locale}.qm")
+        )
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
         # create action
         _current_path = os.path.abspath(os.path.dirname(__file__))
-        plugin_icon_path = os.path.abspath(os.path.join(_current_path, 'points2one.png'))
+        plugin_icon_path = os.path.abspath(
+            os.path.join(_current_path, "points2one.png")
+        )
         plugin_icon = QIcon(plugin_icon_path)
 
         self.action = QAction(
-            plugin_icon, 'Points2One', self.iface.mainWindow()
+            plugin_icon, "Points2One", self.iface.mainWindow()
         )
-        self.action.setWhatsThis('Create polygons and lines from vertices.')
+        self.action.setWhatsThis("Create polygons and lines from vertices.")
         self.action.triggered.connect(self.run)
-        self.actionAbout = QAction(self.tr('About'), self.iface.mainWindow())
+        self.actionAbout = QAction(self.tr("About"), self.iface.mainWindow())
         self.actionAbout.triggered.connect(self.about)
         # add toolbar button and menu item
         self.iface.addVectorToolBarIcon(self.action)
-        self.iface.addPluginToVectorMenu('&Points2One', self.action)
-        self.iface.addPluginToVectorMenu('&Points2One', self.actionAbout)
+        self.iface.addPluginToVectorMenu("&Points2One", self.action)
+        self.iface.addPluginToVectorMenu("&Points2One", self.actionAbout)
 
     def unload(self):
         # remove the plugin menu item and icon
-        self.iface.removePluginVectorMenu('&Points2One', self.action)
-        self.iface.removePluginVectorMenu('&Points2One', self.actionAbout)
+        self.iface.removePluginVectorMenu("&Points2One", self.action)
+        self.iface.removePluginVectorMenu("&Points2One", self.actionAbout)
         self.iface.removeVectorToolBarIcon(self.action)
 
     def run(self):

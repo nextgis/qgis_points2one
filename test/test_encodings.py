@@ -20,10 +20,10 @@
 
 """Test module encodings."""
 
-
 import os
 import sys
-sys.path.insert(0, os.path.join(os.pardir, 'points2one'))
+
+sys.path.insert(0, os.path.join(os.pardir, "points2one"))
 import unittest
 
 import PyQt4.QtCore as qtcore
@@ -33,6 +33,7 @@ import p2o_encodings
 
 class Test_getEncodings(unittest.TestCase):
     """Test function getEncodings."""
+
     def setUp(self):
         """Run before every test in this class."""
         settings = qtcore.QSettings()
@@ -50,18 +51,18 @@ class Test_getEncodings(unittest.TestCase):
     def test_getDefaultEncoding(self):
         """Basic test of function getDefaultEncoding."""
         encoding = p2o_encodings.getDefaultEncoding()
-        self.assertEqual(encoding, 'System')
+        self.assertEqual(encoding, "System")
         settings = qtcore.QSettings()
-        settings.setValue('/UI/encoding', 'SomeEncoding')
+        settings.setValue("/UI/encoding", "SomeEncoding")
         encoding = p2o_encodings.getDefaultEncoding()
-        self.assertEqual(encoding, 'SomeEncoding')
+        self.assertEqual(encoding, "SomeEncoding")
 
     def test_setDefaultEncoding(self):
-        p2o_encodings.setDefaultEncoding('NewEncoding')
+        p2o_encodings.setDefaultEncoding("NewEncoding")
         settings = qtcore.QSettings()
-        encoding = settings.value('/UI/encoding').toString()
-        self.assertEqual(encoding, 'NewEncoding')
+        encoding = settings.value("/UI/encoding").toString()
+        self.assertEqual(encoding, "NewEncoding")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
