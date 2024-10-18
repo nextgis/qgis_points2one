@@ -26,7 +26,7 @@ import sys
 sys.path.insert(0, os.path.join(os.pardir, "points2one"))
 import unittest
 
-import PyQt4.QtCore as qtcore
+import qgis.PyQt.QtCore as qtcore
 
 import p2o_encodings
 

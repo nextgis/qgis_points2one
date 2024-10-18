@@ -162,7 +162,7 @@ class points2One(QDialog, BASE_FORM_CLASS):
             warningBox.setInformativeText(message)
             warningBox.setDetailedText(log_msg)
             warningBox.setIcon(QMessageBox.Warning)
-            warningBox.exec_()
+            warningBox.exec()
 
         if self.wAddResult.isChecked():
             addShapeToCanvas(str(self.output_path()))
