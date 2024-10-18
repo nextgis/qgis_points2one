@@ -64,7 +64,7 @@ class points2one(object):
         # create action
         _current_path = os.path.abspath(os.path.dirname(__file__))
         plugin_icon_path = os.path.abspath(
-            os.path.join(_current_path, "points2one.png")
+            os.path.join(_current_path, "icons/points2one.png")
         )
         plugin_icon = QIcon(plugin_icon_path)
 

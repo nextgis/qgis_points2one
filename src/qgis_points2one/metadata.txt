@@ -60,7 +60,7 @@ tags=point,line,nextgis,conversion
 homepage=https://nextgis.com
 tracker=https://github.com/nextgis/qgis_points2one/issues
 repository=https://github.com/nextgis/qgis_points2one
-icon=points2one.png
+icon=icons/points2one.png
 video=https://youtu.be/tzZnHBx3N98
 video[ru]=https://youtu.be/AT6wt3dWIKg
 
