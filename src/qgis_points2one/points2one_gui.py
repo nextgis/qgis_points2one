@@ -39,7 +39,7 @@ from .p2o_encodings import getEncodings, getDefaultEncoding, setDefaultEncoding
 from .p2o_engine import Engine, P2OError
 
 BASE_FORM_CLASS, _ = uic.loadUiType(
-    join(dirname(__file__), "frmPoints2One.ui")
+    join(dirname(__file__), "ui/frmPoints2One.ui")
 )
 
 
@@ -162,7 +162,7 @@ class points2One(QDialog, BASE_FORM_CLASS):
             warningBox.setInformativeText(message)
             warningBox.setDetailedText(log_msg)
             warningBox.setIcon(QMessageBox.Warning)
-            warningBox.exec_()
+            warningBox.exec()
 
         if self.wAddResult.isChecked():
             addShapeToCanvas(str(self.output_path()))

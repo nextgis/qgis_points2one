@@ -13,11 +13,15 @@ qgisMinimumVersion=3.4
 qgisMaximumVersion=3.99
 description=Create lines and polygons from vertices.
 description[ru]=Создавайте линии и многоугольники из вершин.
+description[es]=Crea líneas y polígonos a partir de vértices.
+description[fr]=Créer des lignes et des polygones à partir de sommets.
 version=0.3.1
 author=NextGIS
 email=info@nextgis.com
 about=Connects points in a layer to form lines and polygons. A QGIS3 port of a plugin by Pavol Kapusta.
 about[ru]=Соединяет точки в слое, образуя линии и многоугольники. Порт QGIS3 плагина от Павла Капусты.
+about[es]=Conecta puntos en una capa para formar líneas y polígonos. Un puerto QGIS3 de un plugin por Pavol Kapusta.
+about[fr]=Relie les points d'une couche pour former des lignes et des polygones. Un portage QGIS3 d'un plugin de Pavol Kapusta.
 
 # end of mandatory metadata
 
@@ -60,7 +64,7 @@ tags=point,line,nextgis,conversion
 homepage=https://nextgis.com
 tracker=https://github.com/nextgis/qgis_points2one/issues
 repository=https://github.com/nextgis/qgis_points2one
-icon=points2one.png
+icon=icons/points2one.png
 video=https://youtu.be/tzZnHBx3N98
 video[ru]=https://youtu.be/AT6wt3dWIKg
 

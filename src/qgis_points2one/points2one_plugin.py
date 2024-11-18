@@ -64,7 +64,7 @@ class points2one(object):
         # create action
         _current_path = os.path.abspath(os.path.dirname(__file__))
         plugin_icon_path = os.path.abspath(
-            os.path.join(_current_path, "points2one.png")
+            os.path.join(_current_path, "icons/points2one.png")
         )
         plugin_icon = QIcon(plugin_icon_path)
 
@@ -88,11 +88,11 @@ class points2one(object):
 
     def run(self):
         dialog = points2One(self.iface)
-        dialog.exec_()
+        dialog.exec()
 
     def about(self):
         dialog = about_dialog.AboutDialog(os.path.basename(self.plugin_dir))
-        dialog.exec_()
+        dialog.exec()
 
     def tr(self, message):
         return QCoreApplication.translate(__class__.__name__, message)
