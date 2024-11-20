@@ -80,6 +80,15 @@ class points2one(object):
         self.iface.addPluginToVectorMenu("&Points2One", self.action)
         self.iface.addPluginToVectorMenu("&Points2One", self.actionAbout)
 
+        self.__show_help_action = QAction(
+            plugin_icon,
+            "NextGIS Points2One",
+        )
+        self.__show_help_action.triggered.connect(self.about)
+        plugin_help_menu = self.iface.pluginHelpMenu()
+        assert plugin_help_menu is not None
+        plugin_help_menu.addAction(self.__show_help_action)
+
     def unload(self):
         # remove the plugin menu item and icon
         self.iface.removePluginVectorMenu("&Points2One", self.action)
