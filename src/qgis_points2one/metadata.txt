@@ -9,13 +9,13 @@
 
 [general]
 name=NextGIS Points2One
-qgisMinimumVersion=3.4
+qgisMinimumVersion=3.22
 qgisMaximumVersion=3.99
 description=Create lines and polygons from vertices.
 description[ru]=Создавайте линии и многоугольники из вершин.
 description[es]=Crea líneas y polígonos a partir de vértices.
 description[fr]=Créer des lignes et des polygones à partir de sommets.
-version=0.3.1
+version=0.4.0
 author=NextGIS
 email=info@nextgis.com
 about=Connects points in a layer to form lines and polygons. A QGIS3 port of a plugin by Pavol Kapusta.
@@ -29,6 +29,11 @@ about[fr]=Relie les points d'une couche pour former des lignes et des polygones.
 
 # Uncomment the following line and add your changelog entries:
 changelog=
+    0.4.0
+    * Updated the "About plugin" dialog
+    * Added plugin item to help menu
+    * Updated translations
+
     0.3.1
     * Fix plugin toolbar icon
 

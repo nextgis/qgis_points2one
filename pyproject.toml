@@ -1,12 +1,12 @@
 [project]
 name = "qgis_points2one"
-version = "0.3.1"
+version = "0.4.0"
 readme = "README.md"
 license = { file = "LICENSE" }
 
 
 [tool.qgspb.package-data]
-"qgis_points2one.icons" = ["points2one.png"]
+"qgis_points2one.icons" = ["*.png", "*.svg"]
 
 [tool.qgspb.forms]
 ui-files = ["src/qgis_points2one/ui/*.ui"]
